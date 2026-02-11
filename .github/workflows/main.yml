@@ -1,0 +1,15 @@
+name: Build Tar for Download
+on: workflow_dispatch
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull and Save Image
+        run: |
+          docker pull ghcr.io/bytebot-ai/bytebot-desktop:latest
+          docker save ghcr.io/bytebot-ai/bytebot-desktop:latest -o bytebot-desktop.tar
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bytebot-image-tar
+          path: bytebot-desktop.tar
